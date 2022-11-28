@@ -98,6 +98,11 @@ class student(object):
         e = exam()
         e.makeExam()
         e.takeExam()
+        e.gradeExam()
+        self.currentScore = e.grade
+        if self.currentScore < e.grade:
+            self.highestScore = e.grade
+        
     
 e = exam()
 e.makeExam()
