@@ -37,14 +37,11 @@ def chooseQuestion():
         return tmp
 class exam(question):
     def makeExam(self):
-        tst = chooseQuestion()
-        t2 = chooseQuestion()
         self.q1 = chooseQuestion()
         self.q2 = chooseQuestion()
         self.q3 = chooseQuestion()
         self.q4 = chooseQuestion()
         self.q5 = chooseQuestion()
-        print(tst + t2)
         # print(self.q1.question + self.q2.question)
     def takeExam(self):
         self.userAns = []
@@ -84,9 +81,9 @@ class exam(question):
     def setExamScore(self):
         self.grade = self.counter
     def returnExamScore(self):
-        return str(self.grade) + "/5"
+        return self.grade
 
-class student(object):
+class student(exam):
     def __init__(self,id="xxxx",currentScore=0,highestScore=0):
         self.id = id
         self.currentScore = currentScore
@@ -96,16 +93,22 @@ class student(object):
     
     def takeQuiz(self):
         e = exam()
-        e.makeExam()
-        e.takeExam()
-        e.gradeExam()
-        self.currentScore = e.grade
-        if self.currentScore < e.grade:
-            self.highestScore = e.grade
-        
-    
-e = exam()
-e.makeExam()
+        self.makeExam()
+        self.takeExam()
+        self.gradeExam()
+        self.setExamScore()
+        self.currentScore = self.returnExamScore()
+        if self.highestScore < self.currentScore:
+            self.highestScore = self.returnExamScore()
+    def returnCurrent(self):
+        return str(self.currentScore) + "/5\n"
+    def returnHighest(self):
+        return str(self.highestScore) + "/5\n"
+
+s = student(1234)
+s.takeQuiz()
+print(s.returnCurrent())
+print(s.returnHighest())
 # print(e.q1+e.q2)
 # e.takeExam()
 # e.gradeExam()
